@@ -1,1 +1,60 @@
+#include <iostream>
 
+namespace geo2d::orto {
+
+    class Quad {
+    public:
+        Quad() = default;
+        virtual ~Quad() = default;
+
+        virtual double area() const = 0;
+        virtual double perimeter() const = 0;
+
+        void SetH(double h) { height_ = h; }
+        void SetV(double v) { width_ = v; }
+        double GetH() const { return height_; }
+        double GetV() const { return width_; }
+
+    protected:
+        double height_{ 0 };
+        double width_{ 0 };
+        double x_1{ 0 };
+        double x_2{ 0 };
+        double y_1{ 0 };
+        double y_2{ 0 };
+    };
+
+    class Rectangle : public Quad {
+    public:
+        Rectangle() = default;
+        Rectangle(double h, double v) {
+            height_ = h;
+            width_ = v;
+        }
+
+        double area() const override {
+            return height_ * width_;
+        }
+
+        double perimeter() const override {
+            return 2 * (height_ + width_);
+        }
+    };
+
+    class Square : public Quad {
+    public:
+        Square() = default;
+        explicit Square(double side) {
+            height_ = side;
+            width_ = side;
+        }
+
+        double area() const override {
+            return height_ * width_;
+        }
+
+        double perimeter() const override {
+            return 4 * height_;
+        }
+    };
+}
